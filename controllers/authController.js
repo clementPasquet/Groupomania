@@ -1,12 +1,15 @@
 const UserModel =require ('../models/userModel')
 const jwt =require('jsonwebtoken')
-
+const {signUpErrors, loginErrors}=require ('../utils/error')
 const maxAge=3*24*60*60*1000;
 const createToken =(id)=>{
     return jwt.sign({id},process.env.TOKEN_SECRET,{
         expiresIn:maxAge
     })
 };
+
+
+
 
 module.exports.signUp= async (req,res)=>{
 const {email,password}=req.body
@@ -17,6 +20,7 @@ try {
     res.statut(201).json({user: user._id});
 }
 catch(err){
+    
     res.status(200).send({err})
 }
 
@@ -30,8 +34,12 @@ module.exports.login= async (req,res)=>{
         res.cookie('jwt',token,{httpOnly: true, maxAge})
         res.status(200).json({user:user._id})
     }catch(err){
-        res.status(500).json(err);
+        const errors =loginErrors(err);
+        res.status(500).json(errors);
     }
 
 }
-module.exports.logout=(req,res)=>{}
+module.exports.logout=(req,res)=>{
+res.cookie('jwt','',{maxAge: 1});
+res.redirect('/');
+}

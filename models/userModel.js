@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -36,8 +36,8 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// play function before save into display: 'block',
-userSchema.pre("save", async function(next) {
+// cette fonction est appelée avant de sauvegarder un utilisateur dans la BD
+UserSchema.pre("save", async function(next) {
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -45,7 +45,7 @@ userSchema.pre("save", async function(next) {
 
 
 // permet de désaler le mot de passe pour le login
-userSchema.statics.login = async function(email, password) {
+UserSchema.statics.login = async function(email, password) {
   const user = await this.findOne({ email });
   if (user) {
     const auth = await bcrypt.compare(password, user.password);
@@ -57,6 +57,6 @@ userSchema.statics.login = async function(email, password) {
   throw Error('incorrect email')
 };
 
-const UserModel = mongoose.model("utilisateur", userSchema);
+const UserModel = mongoose.model("utilisateur", UserSchema);
 
 module.exports = UserModel;
