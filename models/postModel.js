@@ -21,9 +21,9 @@ const PostSchema=new mongoose.Schema(
         coms:{
             type:[
                 {
-                    comID:String,
-                    comEmail:String,
-                    comText:String,
+                    commenterId:String,
+                    commenterEmail:String,
+                    text:String,
                     timestamp:Number,
                 }
             ],
