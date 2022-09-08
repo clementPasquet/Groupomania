@@ -3,6 +3,7 @@ const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const { uploadErrors } = require("../utils/error");
+const { stringify } = require("querystring");
 
 module.exports.uploadProfil = async (req, res) => {
   try {
@@ -23,7 +24,8 @@ module.exports.uploadProfil = async (req, res) => {
   await pipeline(
     req.file.stream,
     fs.createWriteStream(
-      `${__dirname}/../client/public/uploads/profil/${fileName}`
+       stringify( `${__dirname}/../client/public/uploads/profil/${fileName}`)
+
     )
   );
 
