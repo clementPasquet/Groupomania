@@ -12,7 +12,7 @@ const SignInForm = () => {
 
      await axios({
       method :"post",
-      url:"http://localhost:5000/api/user/register",
+      url:` ${process.env.REACT_APP_API_URL}api/user/register` ,
       withCredentials:true,
       data: {
         email,

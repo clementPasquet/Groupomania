@@ -7,7 +7,7 @@ const upload=multer();
 
 router.post("/register", authController.signUp);
 router.post("/login",authController.login);
-router.get("/login",authController.logout);
+router.get("/logout",authController.logout);
 
 
 router.get('/', userController.getAllUsers);

@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm/LoginForm';
-import Header from '../components/Header';
+import Header from '../components/Routes';
 
 const LogIn = () => {
     return (
