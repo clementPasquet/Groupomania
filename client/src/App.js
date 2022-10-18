@@ -2,7 +2,8 @@ import React ,{useEffect, useState} from 'react'
 import {UidContext} from "./components/AppContext"
 import axios from "axios"
 import {useDispatch} from'react-redux';
-import {getUser} from './actions/userActions';
+import {getUser} from './reducers/userActions';
+import Routes from './components/Routes';
 
 function App() {
   const [uid, setUid]=useState(null);
@@ -18,16 +19,18 @@ function App() {
       })
       .then((res)=>{
         setUid(res.data);
+        dispatch(getUser(res.data));
+        
       })
       .catch((err)=>console.log("veuillez vous connecter ou crée un compte"))
     }
     getID();
-    if (uid) dispatch(getUser(uid))
+    
 
-  }, [uid]);
+  }, [uid,dispatch]);
   return (
     <UidContext.Provider value={uid }>
-
+       <Routes />
     </UidContext.Provider>
 
   );

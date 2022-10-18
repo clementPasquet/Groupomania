@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import axios from "axios";
 
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,10 +35,12 @@ const LoginForm = () => {
    };
 
   return (
-    <div>
-      <form action="" onSubmit={submitLogin}>
+    <div className="connectionForm">
+      <h1>Connectez vous !</h1>
+      <form className="connectionForm__Form"action="" onSubmit={submitLogin}>
         <label htmlFor="email">Email </label>
         <input
+        className="connectionForm__input"
           type="text"
           name="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -47,6 +50,7 @@ const LoginForm = () => {
 
         <label htmlFor="password">Mot de passe</label>
         <input
+          className="connectionForm__input"
           type="password"
           name="password"
           onChange={(e) => setPassword(e.target.value)}
@@ -54,9 +58,16 @@ const LoginForm = () => {
         />
         <div id="passwordError"></div>
 
-        <input type="submit" value="Se connecter" />
+        <input className="connectionForm__btn" type="submit" value="Se connecter" />
       </form>
+      <img
+                className="connectionForm__logo"
+                src="../../public/stuff/iconLeftFont.png"
+                alt="logo groupomania orange"
+              />
     </div>
+    
+    
   );
 };
 

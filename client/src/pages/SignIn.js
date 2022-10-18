@@ -1,13 +1,14 @@
 import React from 'react';
 import SignInForm from '../components/SignInForm/SignInForm';
-import Header from '../components/Routes';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const SignIn = () => {
    return (
-    <div >
+    <div className="login" >
    <Header />
-    <h1>Inscrivez vous !</h1>
     <SignInForm />
+    <Footer />
     </div>
     
    );

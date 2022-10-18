@@ -1,0 +1,18 @@
+.footer{
+    background-color: grey;
+    height:150px;
+    margin-top:150px;
+    &__mentions{
+        display:flex;
+        justify-content:baseline;
+        padding-top:20px;
+        &--li{
+        padding-left: 80px;
+
+            list-style-type:  none;
+            color:white
+
+
+        }
+    }
+}

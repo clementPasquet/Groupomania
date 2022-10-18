@@ -1,51 +1,59 @@
-import React from 'react';
-import {useContext} from'react'
-import { NavLink } from 'react-router-dom';
-import {UidContext } from "./AppContext";
+import React from "react";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { UidContext } from "./AppContext";
 import Logout from "./Logout";
-import {useSelector} from'react-redux';
+import { useSelector } from "react-redux";
+import UpdatePicture from "./UpdatePicture";
 
 const Navbar = () => {
+  const uid = useContext(UidContext);
 
-const uid =useContext(UidContext);
-const userData =useSelector((state) => state.userReducer);
-;
-    return (
+  const userData = useSelector((state) => {
+   
+    return state.userReducer;
+  });
+  
+  return (
     <nav>
-        <div className="Navbar" > 
+      <div className="Navbar">
         <div className="Navbar-logo">
-            <NavLink exact to ="/feed">
-              <div className="Navbar-logo">
-                <img src="../../stuff/icon-left-font.png" alt="logo groupomania orange" />
-              </div>
-            </NavLink>
+          <NavLink exact to="/feed">
+            <div >
+              <img
+                src="../stuff/icon-left-font.png"
+                alt="logo groupomania orange"
+              />
+            </div>
+          </NavLink>
         </div>
         {uid ? (
-            <ul>
-                <li></li>
-                <li className="Bonjour">
-                    <NavLink exact to="/login">
-                    </NavLink>
-                </li>
-              
-            </ul>
-        ): (
-            <ul>
-                <li></li>
-                <li>
-                 <NavLink exact to="/profil">
-                 <h4>Bonjour {userData.email}</h4>
+          <div>
+          <ul className="navbar-items">
+            
+            <li>
+              <h4>Bonjour {userData.email}</h4>
+            </li>
+            <li className="logout">
+              <Logout />
+            </li>
+         
 
-                    <img src="../../stuff/user" alt="logo de la page profil" />
-                 </NavLink>
-                </li>
-                <li> <Logout /></li>
-            </ul>
+          </ul>
+          
+            <div> <UpdatePicture /></div>
+          </div>
+        ) : (
+          <ul>
+            <li></li>
+            <li className="Bonjour">
+              <NavLink exact to="/login">Se connecter</NavLink>
+            </li>
+          </ul>
         )}
-        </div>
+      </div>
     </nav>
-       
-    );
+  );
 };
 
 export default Navbar;

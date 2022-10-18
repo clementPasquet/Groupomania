@@ -1,43 +1,43 @@
 
 const UserModel = require('../models/userModel');
-const PostModel = require('../models/postModel');
+const postModel = require('../models/postModel');
 const ObjectID = require('mongoose').Types.ObjectId;
+const fs =require('fs');
 
 module.exports.createPost = async (req, res) => {
-let fileName
-
-
-  if(req.file !== null){
-    try{
-      if(req.file.detectedMimeType !== "image/jpg" && req.file.detectedMimeType !== "image/png" &&req.file.detectedMimeType !== "image/jpeg" )
-      throw Error("fichier invalide");
-      if (req.file.size > 5000000) throw Error ('fichier trop volumineux')
-
-  }catch (err){
-      const errors =uploadErrors (err);
-     return res.status(201).json({errors});
-  }
-
-  const fileName =req.body.postId+ Date.now()+'.jpg';
-  }
-    const newPost = new PostModel({
-        postID: req.body.postID,
-        postText: req.body.postText,
-        Image: req.file !== null? "./uploads/post/"+ fileName :"",
-        likers: [],
-        coms: [],
-    }
-    );
-
-    try {
-        const post = await newPost.save();
-        return res.status(201).json(post);
-    } catch (err) {
-        return res.status(400).send(err);
-    }
+  if (req.file){
+  
+  const newPost = new postModel({
+    postID: req.body.postID,
+    postText: req.body.postText,
+    postImage:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    likers: [],
+    coms: [],
+  });
+  console.log(newPost)
 }
+else {
+  const newPost = new postModel({
+    postID: req.body.postID,
+    postText: req.body.postText,
+    postImage:"",
+    likers: [],
+    coms: [],
+  });
+}
+
+ 
+  try {
+    
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
 module.exports.getPost = (req, res) => {
-    PostModel.find((err, data) => {
+    postModel.find((err, data) => {
         if (!err)
             res.send(data);
         else console.log("Error" + err);
@@ -53,7 +53,7 @@ module.exports.updatePost = (req, res) => {
     const update = {
         postText: req.body.postText
     }
-    PostModel.findByIdAndUpdate(
+    postModel.findByIdAndUpdate(
         req.params.id,
         { $set: update },
         { new: true },
@@ -80,7 +80,7 @@ module.exports.likePost = (req, res) => {
       return res.status(400).send("ID unknown : " + req.params.id);
   
     try {
-      PostModel.findByIdAndUpdate(
+      postModel.findByIdAndUpdate(
         req.params.id,
         {
           $addToSet: { likers: req.body.id },
@@ -110,7 +110,7 @@ module.exports.unlikePost = async (req, res) => {
         return res.status(400).send('ID unknown :' + req.params.id);
 
         try {
-            PostModel.findByIdAndUpdate(
+            postModel.findByIdAndUpdate(
               req.params.id,
               {
                 $pull: { likers: req.body.id },
@@ -143,7 +143,7 @@ module.exports.comsPost =(req,res) => {
     return res.status(400).send('ID unknown :' + req.params.id);
 
     try{
-        return  PostModel.findByIdAndUpdate(
+        return  postModel.findByIdAndUpdate(
             req.params.id,
             {
                 $push:{
@@ -170,7 +170,7 @@ module.exports.comsUpdate =(req,res) => {
     return res.status(400).send('ID unknown :' + req.params.id);
 
     try{
-      return PostModel.findById(
+      return postModel.findById(
         req.params.id,
         (err,data) =>{
            const comment=data.coms.find((coms) =>(
@@ -201,7 +201,7 @@ module.exports.comsDelete =(req,res) => {
     return res.status(400).send('ID unknown :' + req.params.id);
 
     try{
-      return PostModel.findByIdAndUpdate(
+      return postModel.findByIdAndUpdate(
         req.params.id,
         {
           $pull:{

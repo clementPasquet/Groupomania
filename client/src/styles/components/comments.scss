@@ -1,0 +1,49 @@
+.comments{
+  &__content{
+   border:0.5px solid rgb(161, 143, 143);
+   border-radius:33px;
+   margin:10px;
+   padding:20px;
+
+   &--input{
+    width:60%;
+    height:60px;
+   }
+
+   &--btn{
+    padding:7px 25px 7px 25px ;
+    margin:10px;
+    background-color: orange;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius:33px;
+    border:none;
+}
+
+   &--header{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+   }
+
+   &--top{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+   
+   }
+   &--text{
+    text-align: center;
+   }
+   
+  }
+  &__form{
+    text-align: center;
+   
+   }
+   &__pseudo{
+    color:grey;
+    padding:10px;
+    
+   }
+}

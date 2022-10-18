@@ -1,0 +1,11 @@
+.createPost{
+    text-align:center;
+    &__addFile{
+        margin:5px;
+        padding: 10px;
+       
+    }
+    &__sendForm{
+        margin:30px;
+    }
+}

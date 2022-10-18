@@ -1,0 +1,15 @@
+.Navbar{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(245, 177, 49);
+}
+.navbar-items{
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    list-style: none;
+};
+.logout{
+    padding-left: 20px;
+}

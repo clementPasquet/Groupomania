@@ -1,0 +1,20 @@
+.Card {
+    border: 1px  orange;
+    border-style: groove;
+    border-radius: 33px;
+    margin:25px;
+    padding:30px;
+    display:flex;
+    flex-direction: row;
+    
+    &__content{
+        width:100%;
+
+        &--footer{
+            display:flex;
+            justify-content: space-between;
+        }
+    }
+
+   
+}

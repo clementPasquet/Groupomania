@@ -36,10 +36,13 @@ const SignInForm = () => {
    };
 
   return (
-    <div>
-      <form action="submit" onSubmit={submitSignIn}>
+    <div className="connectionForm">
+    <h1>Inscrivez vous !</h1>
+
+      <form className="connectionForm__Form" action="submit" onSubmit={submitSignIn}>
         <label htmlFor="email">Email </label>
         <input
+          className="connectionForm__input"
           type="text"
           name="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -49,6 +52,7 @@ const SignInForm = () => {
 
         <label htmlFor="password">Mot de passe</label>
         <input
+          className="connectionForm__input"
           type="password"
           name="password"
           onChange={(e) => setPassword(e.target.value)}
@@ -56,7 +60,12 @@ const SignInForm = () => {
         />
         <div className="passwordError"></div>
 
-        <input type="submit" value="S'inscrire" />
+        <input className="connectionForm__btn" type="submit" value="S'inscrire" />
+        <img
+                className="connectionForm__logo"
+                src="../../public/stuff/iconLeftFont.png"
+                alt="logo groupomania orange"
+              />
       </form>
     </div>
   );
