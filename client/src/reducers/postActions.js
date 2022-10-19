@@ -30,8 +30,9 @@ export const getPosts = () => {
 export const createPost = (data) => {
   
   return (dispatch) => {
-    console.log(data)
-    data.set('postImage', data.get('file').path)
+    for (const value of data.values()) {
+      console.log(value);
+    }
     return axios.post(`${process.env.REACT_APP_API_URL}api/post`, data);
      
   };

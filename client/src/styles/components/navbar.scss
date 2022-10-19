@@ -3,6 +3,11 @@
     justify-content: space-around;
     align-items: center;
     background-color: rgb(245, 177, 49);
+    padding:0px 100px 20px 100px;
+    margin-bottom:30px;
+    &__header{
+     width:100%;
+    }
 }
 .navbar-items{
     display:flex;

@@ -1,29 +1,27 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { dateParser, isEmpty } from "./Utils";
 import Like from "../components/Like";
-import DeletePost from "../components/DeletePost"
+import DeletePost from "../components/DeletePost";
 import { updatePost } from "../reducers/postActions";
 import Comments from "../components/Comments";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const [isUpdated, setIsUpdated] = useState(false);
-  const [activComments, setActivComments]=useState(false);
+  const [activComments, setActivComments] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
 
-  const updateCard =  () => {
-    if(textUpdate) {
-     dispatch(updatePost(post._id, textUpdate))
-     window.location.reload()
-    
+  const updateCard = () => {
+    if (textUpdate) {
+      dispatch(updatePost(post._id, textUpdate));
+      window.location.reload();
     }
     setIsUpdated(false);
   };
@@ -34,9 +32,7 @@ const Card = ({ post }) => {
 
   return (
     <li className="Card" key={post._id}>
-      {isLoading ? (
-     null
-      ) : (
+      {isLoading ? null : (
         <>
           <div className="Card__picture">
             <img
@@ -56,10 +52,10 @@ const Card = ({ post }) => {
             <div className="Card__content--Header">
               <div className="Card__content--pseudo">
                 <h3>
-                  {!isEmpty(userData[0]) &&
-                    userData
+                  {!isEmpty(usersData[0]) &&
+                    usersData
                       .map((user) => {
-                        console.log(user)
+                        console.log(user);
                         if (user._id === post.postID) return user.email;
                         else return null;
                       })
@@ -67,13 +63,14 @@ const Card = ({ post }) => {
                 </h3>
                 <span>{dateParser(post.createdAt)}</span>
               </div>
+
               {post.postImage && (
-              <img
-                src={post.postImage}
-                alt="card-img"
-                className="Card__content--picture"
-              />
-            )}
+                <img
+                  src={post.postImage}
+                  alt="card-img"
+                  className="Card__content--picture"
+                />
+              )}
             </div>
             <p>{post.postText}</p>
             {isUpdated && (
@@ -87,23 +84,28 @@ const Card = ({ post }) => {
                 </button>
               </div>
             )}
-           <div className="Card__content--footer">
-            {userData._id ===post.postID &&(
+            <div className="Card__content--footer">
+              {userData._id === post.postID && (
                 <div className="updatePost">
-                <div className="modifyPost__btn" onClick={()=> setIsUpdated(!isUpdated)}>
-                    < FontAwesomeIcon icon={faPenToSquare} />
+                  <div
+                    className="modifyPost__btn"
+                    onClick={() => setIsUpdated(!isUpdated)}
+                  >
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                  </div>
+                  <DeletePost id={post._id} />
                 </div>
-                <DeletePost id={post._id} />
+              )}
+              <div>
+                <div className="comment-icon">
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    onClick={() => setActivComments(!activComments)}
+                  />
+                  <span>{post.coms.length}</span>
                 </div>
-            )}
-            <div >
-              <div className="comment-icon">
-                <FontAwesomeIcon icon={faEnvelope} onClick={()=>setActivComments(!activComments)} />
-                <span>{post.coms.length}</span>
-
+                <Like post={post} />
               </div>
-              <Like post={post} />
-            </div>
             </div>
             {activComments && <Comments post={post} />}
           </div>

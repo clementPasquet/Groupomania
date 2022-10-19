@@ -61,8 +61,8 @@ const LoginForm = () => {
         <input className="connectionForm__btn" type="submit" value="Se connecter" />
       </form>
       <img
-                className="connectionForm__logo"
-                src="../../public/stuff/iconLeftFont.png"
+                className="accueil-logo"
+                src="./stuff/iconLeftFont.png"
                 alt="logo groupomania orange"
               />
     </div>

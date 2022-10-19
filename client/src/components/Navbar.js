@@ -10,44 +10,35 @@ const Navbar = () => {
   const uid = useContext(UidContext);
 
   const userData = useSelector((state) => {
-   
     return state.userReducer;
   });
-  
+
   return (
-    <nav>
+    <nav className="Navbar__header">
       <div className="Navbar">
-        <div className="Navbar-logo">
-          <NavLink exact to="/feed">
-            <div >
-              <img
-                src="../stuff/icon-left-font.png"
-                alt="logo groupomania orange"
-              />
-            </div>
-          </NavLink>
-        </div>
         {uid ? (
           <div>
-          <ul className="navbar-items">
-            
-            <li>
-              <h4>Bonjour {userData.email}</h4>
-            </li>
-            <li className="logout">
-              <Logout />
-            </li>
-         
+            <ul className="navbar-items">
+              <li>
+                <h4>Bonjour {userData.email}</h4>
+              </li>
+              <li className="logout">
+                <Logout />
+              </li>
+            </ul>
 
-          </ul>
-          
-            <div> <UpdatePicture /></div>
+            <div>
+              {" "}
+              <UpdatePicture />
+            </div>
           </div>
         ) : (
           <ul>
             <li></li>
             <li className="Bonjour">
-              <NavLink exact to="/login">Se connecter</NavLink>
+              <NavLink exact to="/login">
+                Se connecter
+              </NavLink>
             </li>
           </ul>
         )}

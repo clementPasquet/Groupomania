@@ -13,6 +13,13 @@ const Feed = () => {
     <CreatePost /> 
       </div>
       <Thread />
+      <div className="imgLogo" >
+              <img
+                className="imgLogo__pic"
+                src="./stuff/iconLeftFont.png"
+                alt="logo groupomania orange"
+              />
+            </div>
    
     </div>
    );

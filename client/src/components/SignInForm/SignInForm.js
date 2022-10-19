@@ -62,8 +62,8 @@ const SignInForm = () => {
 
         <input className="connectionForm__btn" type="submit" value="S'inscrire" />
         <img
-                className="connectionForm__logo"
-                src="../../public/stuff/iconLeftFont.png"
+                className="accueil-logo"
+                src="./stuff/iconLeftFont.png"
                 alt="logo groupomania orange"
               />
       </form>
