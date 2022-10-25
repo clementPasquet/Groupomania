@@ -13,9 +13,9 @@ const path = require("path");
 app.use(helmet());
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000",
   credentials: true,
-  allowHeaders: ["sessionId", "Content-Type", "Cross-Origin-Resource-Policy"],
+  allowHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   prefLightContinue: false,

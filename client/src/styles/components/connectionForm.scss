@@ -1,43 +1,44 @@
-.login{
-    background-color: rgb(252, 177, 39);
-    display:flex;
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: pink;
+}
+
+.connectionForm {
+  text-align: center;
+  border: 2px pink solid;
+  background-color: white;
+  border-radius: 50px;
+  width: 60%;
+  margin: auto;
+  margin-top: 70px;
+
+  &__input {
+    width: 40%;
+    margin: 15px;
+    padding: 5px;
+    border-radius: 33px;
+    border-style: groove;
+    border-width: 1px;
+  }
+  &__Form {
+    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-   
-}
-
-
-.connectionForm{
-    text-align: center;
-    margin-top:70px;
-    &__input{
-          width:40%;
-          margin:15px;
-          padding:5px;
-          border-radius:33px;
-          border-style:groove;
-          border-width: 1px;
-
-         
-
-    }
-    &__Form{
-          display:flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-around;
-    }
-    &__btn{
-        border:none;
-    border-radius:33px;
-    background:linear-gradient(orange,rgb(238, 71, 71));
-    text-decoration: none; 
-    padding:10px;
+    align-items: center;
+    justify-content: space-around;
+  }
+  &__btn {
+    border: none;
+    border-radius: 33px;
+    background: linear-gradient(orange, rgb(238, 71, 71));
+    text-decoration: none;
+    padding: 10px;
     font-size: 15px;
-    }
+  }
 }
-.accueil-logo{
-    margin-top:80px;
-height:150px;
-
+.accueil-logo {
+  margin-top: 80px;
+  margin-bottom: 100px;
+  height: 50px;
 }

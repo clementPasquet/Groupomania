@@ -1,0 +1,29 @@
+.updateProfil {
+  text-align: center;
+  margin: 0px;
+  border-bottom: 1px solid orange;
+  margin-bottom: 10px;
+  &__label {
+    z-index: 1;
+    position: absolute;
+  }
+  &__label:hover {
+    text-decoration: underline;
+  }
+  &__inputFile {
+    cursor: pointer;
+
+    z-index: 2;
+    position: relative;
+    opacity: 0;
+  }
+  &__inputBtn {
+    padding: 7px 25px 7px 25px;
+    background-color: orange;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 33px;
+    border: none;
+    margin: 10px;
+  }
+}

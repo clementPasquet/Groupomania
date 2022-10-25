@@ -1,20 +1,23 @@
-.Navbar{
-    display:flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgb(245, 177, 49);
-    padding:0px 100px 20px 100px;
-    margin-bottom:30px;
-    &__header{
-     width:100%;
-    }
+.Navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 100px 20px 100px;
+  margin-bottom: 70px;
+  box-shadow: 6px 1px 30px black;
 }
-.navbar-items{
-    display:flex;
-    justify-content:space-around;
-    align-items: center;
-    list-style: none;
-};
-.logout{
-    padding-left: 20px;
+.navbar-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0px;
+}
+.logout {
+  padding-left: 20px;
+}
+.Bonjour {
+  list-style: none;
+  font-size: 20px;
+  font-weight: bold;
 }

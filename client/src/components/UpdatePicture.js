@@ -1,55 +1,52 @@
-import axios from 'axios';
-import React, { useContext, useState } from 'react';
-import { UidContext } from './AppContext';
-
-
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../reducers/postActions";
+import { updateProfil } from "../reducers/userActions";
 
 const UpdatePicture = () => {
-    const [image, setImage] = useState("");
-  const uid = useContext(UidContext);
+  const userData = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const [file, setFile] = useState(undefined);
 
+  const submitPicture = (e) => {
+    const sendPicture = (e) => {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("userId", userData._id);
+      console.log("userdata", userData);
 
-    
+      dispatch(updateProfil(data, userData._id));
+      dispatch(getPosts());
+    };
+    if (file) {
+      sendPicture();
+    }
+  };
 
-    const submitPicture =(e) =>{
-    e.preventDefault();
-
-        axios({
-            method :"put",
-            url:` ${process.env.REACT_APP_API_URL}api/user/${uid}` ,
-            withCredentials:true,
-            data: {
-             image
-            }
-          })
-          .then ((res)=>{
-           
-           
-              window.location.reload();
-            
-          })
-          .catch((err)=>{
-              console.log(err);
-            });
-         };
-    
-    return (
-        <div>
-          <input 
-                type="file" 
-                id="image-upload" 
-                name="file" 
-                accept =".jpg, .jpeg, .png" 
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                />
-        <input className="submitImage__btn" type="submit" value="Valider" onClick={submitPicture} />
-
-                
-
-            
-        </div>
-    );
+  return (
+    <div className="updateProfil">
+      <div className="updateProfil__content">
+        <form action="" onSubmit={submitPicture}>
+          <label className="updateProfil__label" htmlFor="file">
+            Changer votre photo de profil
+          </label>
+          <input
+            className="updateProfil__inputFile"
+            type="file"
+            id="file-upload"
+            name="file"
+            accept=".jpg, .jpeg, .png"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <input
+            className="updateProfil__inputBtn"
+            type="submit"
+            value="Envoyer"
+          />
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default UpdatePicture;

@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
 import Logout from "./Logout";
 import { useSelector } from "react-redux";
-import UpdatePicture from "./UpdatePicture";
 
 const Navbar = () => {
   const uid = useContext(UidContext);
@@ -16,8 +15,15 @@ const Navbar = () => {
   return (
     <nav className="Navbar__header">
       <div className="Navbar">
+        <div className="imgLogo">
+          <img
+            className="imgLogo__pic"
+            src="./stuff/iconLeftFont.png"
+            alt="logo groupomania orange"
+          />
+        </div>
         {uid ? (
-          <div>
+          <div className="Navbar__header--right">
             <ul className="navbar-items">
               <li>
                 <h4>Bonjour {userData.email}</h4>
@@ -26,18 +32,12 @@ const Navbar = () => {
                 <Logout />
               </li>
             </ul>
-
-            <div>
-              {" "}
-              <UpdatePicture />
-            </div>
           </div>
         ) : (
           <ul>
-            <li></li>
             <li className="Bonjour">
-              <NavLink exact to="/login">
-                Se connecter
+              <NavLink className="Bonjour__text" exact to="/login">
+                Cliquez ici pour vous connectez et interagir !
               </NavLink>
             </li>
           </ul>

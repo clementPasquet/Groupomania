@@ -1,15 +1,17 @@
-@import '../components/navbar.scss';
-@import '../components/card.scss';
-@import '../components/createPost.scss';
-@import '../components/comments.scss';
+@import "../components/navbar.scss";
+@import "../components/card.scss";
+@import "../components/createPost.scss";
+@import "../components/comments.scss";
+@import "../components/updateProfil.scss";
 
-.imgLogo{
-    text-align: center;
-    &__pic{
-    height:200px;
-        
-    }
+.thread-container {
+  padding: 0px;
+}
+.imgLogo {
+  text-align: center;
+  margin-right: 0px;
 
-    
-
+  &__pic {
+    height: 50px;
+  }
 }

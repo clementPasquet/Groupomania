@@ -11,10 +11,13 @@ const Thread = () => {
   const posts = useSelector((state) => state.postReducer);
 
   const loadMore = () => {
-    if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >
+      document.scrollingElement.scrollHeight
+    ) {
       setLoadPost(true);
     }
-  }
+  };
 
   useEffect(() => {
     if (loadPost) {
@@ -23,17 +26,19 @@ const Thread = () => {
       setCount(count + 5);
     }
 
-    window.addEventListener('scroll', loadMore);
-    return () => window.removeEventListener('scroll', loadMore);
+    window.addEventListener("scroll", loadMore);
+    return () => window.removeEventListener("scroll", loadMore);
   }, [loadPost, dispatch, count]);
 
   return (
-    <div className="thread-container">
-      <ul>
+    <div>
+      <ul className="thread-container">
         {!isEmpty(posts[0]) &&
-          posts.map((post) => {
-            return <Card post={post} key={post._id} />;
-          })}
+          posts
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .map((post) => {
+              return <Card post={post} key={post._id} />;
+            })}
       </ul>
     </div>
   );

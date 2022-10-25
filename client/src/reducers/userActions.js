@@ -1,15 +1,31 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const GET_USER ="GET_USER";
+export const GET_USER = "GET_USER";
 
-export const getUser =(uid) =>{
-    return(dispatch) =>{
+export const UPDATE_PROFIL = "UPDATE_PROFIL";
+
+export const getUser = (uid) => {
+  return (dispatch) => {
+    return axios
+      .get(` ${process.env.REACT_APP_API_URL}api/user/${uid}`)
+      .then((res) => {
+        dispatch({ type: GET_USER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const updateProfil = (data, id) => {
+  return (dispatch) => {
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data)
+      .then((res) => {
         return axios
-        .get(` ${process.env.REACT_APP_API_URL}api/user/${uid}` )
-        .then((res)=>{
-            dispatch({type:GET_USER, payload:res.data })
-        })
-        .catch((err) => console.log(err))
-                 
-    }
-}
+          .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+          .then((res) => {
+            dispatch({ type: UPDATE_PROFIL, payload: res.data.image });
+          });
+      })
+      .catch((err) => console.log(err));
+  };
+};

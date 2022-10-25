@@ -1,4 +1,24 @@
-@import './pages/feed.scss';
-@import './pages/login.scss';
+@import "./pages/feed.scss";
+@import "./pages/login.scss";
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Shrikhand");
 
-body{margin:0px;}
+body {
+  margin: 0px;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: Shrikhand;
+  }
+  font-family: Roboto;
+}
+a {
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
+textarea::placeholder {
+  text-align: center;
+}

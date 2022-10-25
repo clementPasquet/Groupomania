@@ -1,19 +1,18 @@
-.footer{
-    background-color: grey;
-    height:150px;
-    margin-top:45px;
-    
-    &__mentions{
-        display:flex;
-        justify-content:baseline;
-        padding-top:20px;
-        &--li{
-        padding-left: 80px;
+.footer {
+  background-color: grey;
+  height: 150px;
+  margin-top: 45px;
 
-            list-style-type:  none;
-            color:white
+  &__mentions {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0px 0px 0px;
 
-
-        }
+    &--li {
+      list-style-type: none;
+      color: white;
+      padding-right: 50px;
     }
+  }
 }
