@@ -21,3 +21,11 @@
   font-size: 20px;
   font-weight: bold;
 }
+@media screen and (max-width: 468px) {
+  .Navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

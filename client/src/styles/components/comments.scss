@@ -1,15 +1,18 @@
 .comments {
   &__date {
     font-style: italic;
-    color: lightgray;
+    color: grey;
+    margin-left: 40px;
   }
   &__content {
     border: 0.5px solid rgb(161, 143, 143);
     border-radius: 33px;
     margin: 10px;
     padding: 20px;
+    padding-top: 5px;
     &--userPicture {
       height: 70px;
+      margin-right: 10px;
     }
     &--input {
       width: 60%;
@@ -33,6 +36,9 @@
       border-bottom: 1px solid grey;
       padding-bottom: 20px;
     }
+    &--headerLeft {
+      display: flex;
+    }
 
     &--top {
       display: flex;
@@ -48,5 +54,43 @@
   }
   &__pseudo {
     padding: 10px;
+  }
+}
+.editComment {
+  text-align: center;
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+  &__trash {
+    padding-left: 25px;
+    height: 20px;
+  }
+  &__textArea {
+    height: 30px;
+    width: 45%;
+  }
+  &__btn {
+    padding: 5px 15px 5px 15px;
+    margin: 10px;
+    background-color: orange;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 33px;
+    border: none;
+  }
+  &__btnActiv {
+    padding: 5px 15px 5px 15px;
+    margin: 10px;
+    background-color: rgb(248, 225, 229);
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 33px;
+    border: none;
+  }
+  &__form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../reducers/postActions";
 import Card from "./Card";
-import { isEmpty } from "./Utils";
 
 const Thread = () => {
   const [loadPost, setLoadPost] = useState(true);
@@ -33,12 +32,10 @@ const Thread = () => {
   return (
     <div>
       <ul className="thread-container">
-        {!isEmpty(posts[0]) &&
-          posts
-            .sort((a, b) => b.createdAt - a.createdAt)
-            .map((post) => {
-              return <Card post={post} key={post._id} />;
-            })}
+        {posts &&
+          posts.map((post) => {
+            return <Card post={post} key={post._id} />;
+          })}
       </ul>
     </div>
   );

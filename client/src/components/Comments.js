@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isEmpty } from "../components/Utils";
 import { createComment, getPosts } from "../reducers/postActions";
 import EditComment from "./EditComment";
+import moment from "moment";
+import "moment/locale/fr";
+moment.locale("fr");
 
 const Comments = ({ post }) => {
+  console.log(post);
+
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -26,23 +30,25 @@ const Comments = ({ post }) => {
         return (
           <div className="comments__content" key={com._id}>
             <div className="comments__content--header">
-              <img
-                crossorigin="anonymous"
-                className="comments__content--userPicture"
-                src={
-                  !isEmpty(usersData[0]) &&
-                  usersData.reduce((image, user) =>
-                    user._id === post.postID ? user.image : image
-                  )
-                }
-                alt="poster-pic"
-              />
+              <div className="comments__content--headerLeft">
+                <img
+                  crossorigin="anonymous"
+                  className="comments__content--userPicture"
+                  src={
+                    usersData &&
+                    usersData.reduce((image, user) =>
+                      user._id === com.commenterId ? user.image : image
+                    )
+                  }
+                  alt="poster-pic"
+                />
 
+                <p className="comments__pseudo">{com.commenterEmail}</p>
+              </div>
               <div className="comments__content--top">
-                <div>
-                  <p className="comments__pseudo">{com.commenterEmail}</p>
-                </div>
-                <span className="comments__date">{com.timestamp}</span>
+                <span className="comments__date">
+                  {moment(com.timestamp).format("LLLL")}
+                </span>
               </div>
             </div>
             <div>

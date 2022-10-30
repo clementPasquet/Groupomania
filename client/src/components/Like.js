@@ -26,7 +26,7 @@ const Like = ({ post }) => {
   }, [uid, post.likers, liked]);
 
   return (
-    <div>
+    <div className="postInteractions__content">
       {uid && liked === false && (
         <FontAwesomeIcon
           className="postInteractions__Icon"
@@ -41,7 +41,11 @@ const Like = ({ post }) => {
           onClick={unlike}
         />
       )}
-      {uid && <span>{post.likers.length}</span>}
+      {uid && (
+        <div className="postInteractions__Icon--number">
+          {post.likers.length}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,13 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { dateParser, isEmpty } from "./Utils";
 import Like from "../components/Like";
 import DeletePost from "../components/DeletePost";
 import { getPosts, updatePost } from "../reducers/postActions";
 import Comments from "../components/Comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { addBackendUrl } from "./Utils";
+import moment from "moment";
+import "moment/locale/fr";
+moment.locale("fr");
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +19,6 @@ const Card = ({ post }) => {
   const [isUpdated, setIsUpdated] = useState(false);
   const [activComments, setActivComments] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
-  const adminId = "6351f0eeeab828ca88ff7f3a";
   const dispatch = useDispatch();
 
   const updateCard = () => {
@@ -29,7 +31,7 @@ const Card = ({ post }) => {
   };
 
   useEffect(() => {
-    !isEmpty(usersData[0]) && setIsLoading(false);
+    usersData.length && setIsLoading(false);
   }, [usersData]);
 
   return (
@@ -42,7 +44,7 @@ const Card = ({ post }) => {
                 crossorigin="anonymous"
                 className="Card__content--userPicture"
                 src={
-                  !isEmpty(usersData[0]) &&
+                  usersData &&
                   usersData.reduce((image, user) =>
                     user._id === post.postID ? user.image : image
                   )
@@ -52,7 +54,7 @@ const Card = ({ post }) => {
               <div className="Card__content--headerLeft">
                 <div className="Card__content--pseudo">
                   <p>
-                    {!isEmpty(usersData[0]) &&
+                    {usersData &&
                       usersData.reduce(
                         (email, user) =>
                           user._id === post.postID ? user.email : email,
@@ -61,13 +63,15 @@ const Card = ({ post }) => {
                   </p>
                 </div>
 
-                <span className="date">{dateParser(post.createdAt)}</span>
+                <span className="date">
+                  {moment(post.createdAt).format("LLLL")}
+                </span>
               </div>
             </div>
             {post.postImage && (
               <img
                 crossorigin="anonymous"
-                src={post.postImage}
+                src={addBackendUrl(post.postImage)}
                 alt="card-img"
                 className="Card__content--picture"
               />
@@ -92,7 +96,7 @@ const Card = ({ post }) => {
             {activComments && <Comments post={post} />}
 
             <div className="Card__content--footer">
-              {userData._id === post.postID && (
+              {userData.isAdmin ? (
                 <div className="updatePost">
                   <div onClick={() => setIsUpdated(!isUpdated)}>
                     <FontAwesomeIcon
@@ -102,27 +106,30 @@ const Card = ({ post }) => {
                   </div>
                   <DeletePost id={post._id} />
                 </div>
-              )}
-              {userData._id === adminId && (
-                <div className="updatePost">
-                  <div onClick={() => setIsUpdated(!isUpdated)}>
-                    <FontAwesomeIcon
-                      className="updatePost__Icon"
-                      icon={faPenToSquare}
-                    />
+              ) : (
+                userData._id === post.postID && (
+                  <div className="updatePost">
+                    <div onClick={() => setIsUpdated(!isUpdated)}>
+                      <FontAwesomeIcon
+                        className="updatePost__Icon"
+                        icon={faPenToSquare}
+                      />
+                    </div>
+                    <DeletePost id={post._id} />
                   </div>
-                  <DeletePost id={post._id} />
-                </div>
+                )
               )}
 
               <div className="postInteractions">
-                <div>
+                <div className="postInteractions__content">
                   <FontAwesomeIcon
                     className="postInteractions__Icon"
                     icon={faEnvelope}
                     onClick={() => setActivComments(!activComments)}
                   />
-                  <span>{post.coms.length}</span>
+                  <div className="postInteractions__Icon--number">
+                    {post.coms.length}
+                  </div>
                 </div>
                 <Like post={post} />
               </div>

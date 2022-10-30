@@ -25,19 +25,23 @@ const UpdatePicture = () => {
 
   return (
     <div className="updateProfil">
-      <div className="updateProfil__content">
-        <form action="" onSubmit={submitPicture}>
-          <label className="updateProfil__label" htmlFor="file">
+      <div>
+        <form
+          action=""
+          className="updateProfil__content"
+          onSubmit={submitPicture}
+        >
+          <label className="updateProfil__label" for="file-uploadProfil">
             Changer votre photo de profil
+            <input
+              className="updateProfil__inputFile"
+              type="file"
+              id="file-uploadProfil"
+              name="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
           </label>
-          <input
-            className="updateProfil__inputFile"
-            type="file"
-            id="file-upload"
-            name="file"
-            accept=".jpg, .jpeg, .png"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
           <input
             className="updateProfil__inputBtn"
             type="submit"

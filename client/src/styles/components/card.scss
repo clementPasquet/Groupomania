@@ -52,6 +52,7 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      flex-wrap: wrap;
     }
     &--pseudo {
       padding-left: 10px;
@@ -68,6 +69,9 @@
     }
     &--text {
       text-align: center;
+      margin-bottom: 80px;
+      flex-wrap: wrap;
+      padding: 15px;
     }
 
     &--footer {
@@ -98,6 +102,10 @@
     margin-right: 10px;
     height: 25px;
   }
+  &__content {
+    display: flex;
+    align-items: center;
+  }
   &__iconHeart {
     margin-right: 10px;
     height: 25px;
@@ -107,4 +115,44 @@
 .date {
   font-style: italic;
   color: grey;
+}
+@media screen and (max-width: 468px) {
+  .Card {
+    &__content {
+      &--header {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+    }
+  }
+  .updatePost {
+    justify-content: center;
+    margin-right: 30px;
+    &__Icon {
+      margin: 10px;
+      height: 20px;
+    }
+  }
+
+  .postInteractions {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__content {
+      margin-right: 10px;
+    }
+    &__Icon {
+      margin-right: 10px;
+      height: 20px;
+      &--number {
+        margin-left: 5px;
+      }
+    }
+    &__iconHeart {
+      margin-right: 10px;
+      height: 20px;
+      color: red;
+    }
+  }
 }

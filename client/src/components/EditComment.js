@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { deleteComment, editComment } from "../reducers/postActions";
+import { deleteComment, editComment, getPosts } from "../reducers/postActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UidContext } from "./AppContext";
 
-const EditComment = (comment, postId) => {
+const EditComment = ({ comment, postId }) => {
+  console.log(postId);
   const [isCommenter, setIsCommenter] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
@@ -22,47 +23,59 @@ const EditComment = (comment, postId) => {
       setEdit(false);
     }
   };
-  const submitDelete = () => dispatch(deleteComment(postId, comment._id));
+  const submitDelete = () => {
+    dispatch(deleteComment(postId, comment._id)).then(() =>
+      dispatch(getPosts())
+    );
+  };
 
   useEffect(() => {
-    const checkCommenter = () => {
-      if (uid === comment.commenterId) {
-        setIsCommenter(true);
-      }
-    };
-    checkCommenter();
+    if (uid === comment.commenterId) {
+      setIsCommenter(true);
+    }
   }, [uid, comment.commenterId]);
 
   return (
     <div className="editComment">
       {isCommenter === true && edit === false && (
-        <span onClick={() => setEdit(!edit)}>
-          <p>edit</p>
-        </span>
+        <button
+          className="editComment__btnActiv "
+          onClick={() => setEdit(!edit)}
+        >
+          Editer le commentaire
+        </button>
       )}
+
       {isCommenter && edit && (
-        <form action="" onSubmit={submitEdit()} className="editcomment__form">
-          <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            Editer
-          </label>
-          <br />
+        //
+        <form action="" onSubmit={submitEdit} className="editComment__form">
+          <div className="editComment__left">
+            <button
+              className="editComment__btnActiv"
+              onClick={() => setEdit(!edit)}
+            >
+              Annuler
+            </button>
+            <div
+              onClick={() => {
+                if (window.confirm("Voulez-vous supprimer ce commentaire?")) {
+                  submitDelete();
+                }
+              }}
+            >
+              <FontAwesomeIcon className="editComment__trash" icon={faTrash} />
+            </div>
+          </div>
+
           <input
+            className="editComment__textArea"
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
             defaultValue={comment.text}
           />
-          <br />
-          <div
-            onClick={() => {
-              if (window.confirm("Voulez-vous supprimer ce commentaire?")) {
-                submitDelete();
-              }
-            }}
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </div>
-          <input type="submit" value="Valider" />
+
+          <input className="editComment__btn" type="submit" value="Valider" />
         </form>
       )}
     </div>

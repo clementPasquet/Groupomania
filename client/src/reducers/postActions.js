@@ -16,7 +16,7 @@ export const DELETE_COMMENT = "DELETE_COMMENT";
 export const getPosts = () => {
   return (dispatch) => {
     return axios
-      .get(` ${process.env.REACT_APP_API_URL}api/post`)
+      .get(`${process.env.REACT_APP_API_URL}api/post`)
       .then((res) => {
         dispatch({ type: GET_POSTS, payload: res.data });
       })
@@ -115,6 +115,7 @@ export const editComment = (postId, commentId, text) => {
 
 export const deleteComment = (postId, commentId) => {
   return (dispatch) => {
+    console.log(postId);
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/coms-delete/${postId}`,

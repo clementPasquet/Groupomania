@@ -3,19 +3,25 @@
   margin: 0px;
   border-bottom: 1px solid orange;
   margin-bottom: 10px;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   &__label {
-    z-index: 1;
-    position: absolute;
+    // z-index: 1;
+    // position: absolute;
   }
   &__label:hover {
     text-decoration: underline;
   }
   &__inputFile {
+    display: none;
     cursor: pointer;
 
-    z-index: 2;
-    position: relative;
-    opacity: 0;
+    // z-index: 2;
+    // position: relative;
   }
   &__inputBtn {
     padding: 7px 25px 7px 25px;
@@ -25,5 +31,14 @@
     border-radius: 33px;
     border: none;
     margin: 10px;
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .updateProfil {
+    &__inputBtn {
+      width: 100%;
+    }
   }
 }

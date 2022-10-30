@@ -55,17 +55,18 @@ const CreatePost = () => {
           />
 
           <div className="createPost__addFile">
-            <div>
+            <label for="file-uploadPost">
               <FontAwesomeIcon className="createPost__iconImg" icon={faImage} />
-            </div>
-            <input
-              className="createPost__inputFile"
-              type="file"
-              id="file-upload"
-              name="file"
-              accept=".jpg, .jpeg, .png"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
+
+              <input
+                className="createPost__inputFile"
+                type="file"
+                id="file-uploadPost"
+                name="file"
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </label>
           </div>
 
           <button className="createPost__sendForm" onClick={submitPost}>

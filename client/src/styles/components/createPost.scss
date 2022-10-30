@@ -6,13 +6,12 @@
   border-radius: 16px;
 
   &__iconImg {
-    position: absolute;
     height: 25px;
   }
   &__profilImage {
     border-radius: 20px;
     height: 125px;
-    margin: 10px;
+    margin: auto;
   }
   &__postForm {
     width: 70%;
@@ -26,13 +25,10 @@
   &__addFile {
     display: flex;
     justify-content: center;
-    margin-left: 40%;
     padding: 10px;
   }
   &__inputFile {
-    position: relative;
-    z-index: 2;
-    opacity: 0;
+    display: none;
   }
   &__sendForm {
     padding: 7px 25px 7px 25px;
@@ -45,5 +41,18 @@
   }
   &__noId {
     text-align: center;
+  }
+}
+@media screen and (max-width: 468px) {
+  .createPost {
+    &__postForm {
+      width: 100%;
+    }
+    &__profilImage {
+      border-radius: 20px;
+      height: 125px;
+      width: 100%;
+      margin: auto;
+    }
   }
 }
