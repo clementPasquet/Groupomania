@@ -63,15 +63,18 @@
     }
     &--picture {
       display: flex;
-      height: 600px;
+      height: 400px;
       width: 80%;
       margin: auto;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
     &--text {
       text-align: center;
-      margin-bottom: 80px;
+
       flex-wrap: wrap;
-      padding: 15px;
     }
 
     &--footer {
@@ -119,9 +122,41 @@
 @media screen and (max-width: 468px) {
   .Card {
     &__content {
+      &--userPicture{
+        margin-right:0px;
+
+      }
       &--header {
         flex-wrap: wrap;
         flex-direction: column;
+        margin-bottom: 10px;
+        justify-content: center;
+        align-items: center;
+        
+       
+      }
+      &--headerLeft{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width:100%;
+        margin:auto;
+      }
+      &--picture {
+        height: 200px;
+        width: 80%;
+        margin: auto;
+        margin-bottom: 20px;
+      }
+      &--text {
+        margin: 0px;
+        margin-bottom: 20px;
+      }
+      &--modifyPost {
+        flex-direction: column;
+      }
+      &--pseudo{
+        padding:0px;
       }
     }
   }
@@ -155,4 +190,14 @@
       color: red;
     }
   }
+}
+.threadNull {
+  border: 2px solid pink;
+  border-radius: 30px;
+  padding: 80px;
+  margin: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: pink;
+  font-weight: bold;
 }

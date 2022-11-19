@@ -7,7 +7,6 @@ import "moment/locale/fr";
 moment.locale("fr");
 
 const Comments = ({ post }) => {
-  console.log(post);
 
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
@@ -32,20 +31,23 @@ const Comments = ({ post }) => {
             <div className="comments__content--header">
               <div className="comments__content--headerLeft">
                 <img
-                  crossorigin="anonymous"
+                  crossOrigin="anonymous"
                   className="comments__content--userPicture"
                   src={
-                    usersData &&
-                    usersData.reduce((image, user) =>
-                      user._id === com.commenterId ? user.image : image
-                    )
+                    usersData[0] &&
+                    usersData
+                      .map((user) => {
+                        if (user._id ===com.commenterId) return user.image;
+                        else return null;
+                      })
+                      .join("")
                   }
                   alt="poster-pic"
                 />
-
-                <p className="comments__pseudo">{com.commenterEmail}</p>
               </div>
               <div className="comments__content--top">
+                <p className="comments__pseudo">{com.commenterEmail}</p>
+
                 <span className="comments__date">
                   {moment(com.timestamp).format("LLLL")}
                 </span>

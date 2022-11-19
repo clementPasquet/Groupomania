@@ -12,6 +12,9 @@ export default function postReducer(state = [], action) {
   switch (action.type) {
     case GET_POSTS:
       return action.payload;
+
+    //ici on fait un map pour récuperer les posts et identifier le post liké
+    // on rajoute ensuite l'id du likeur au tableau des likers du post sans toucher a la data du post
     case LIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
@@ -22,7 +25,7 @@ export default function postReducer(state = [], action) {
         }
         return post;
       });
-
+    //cette fonction marche comme la précédente mais ici nous utilisons la methode filter pour retirer du tableau likers l'id du unlikeur
     case UNLIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {

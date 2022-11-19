@@ -3,7 +3,7 @@ import axios from "axios";
 export const GET_USER = "GET_USER";
 
 export const UPDATE_PROFIL = "UPDATE_PROFIL";
-
+// cette fonction recupère les données relatives a l'utilisateur connecté et les envois au reducer
 export const getUser = (uid) => {
   return (dispatch) => {
     return axios
@@ -14,7 +14,7 @@ export const getUser = (uid) => {
       .catch((err) => console.log(err));
   };
 };
-
+// cette fonction envoi  au serveur et au reducer la data de l'image de profil
 export const updateProfil = (data, id) => {
   return (dispatch) => {
     return axios

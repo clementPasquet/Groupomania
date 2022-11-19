@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const uid = useContext(UidContext);
 
+  // on utilise le hook useSelector pour recupérer les informations de notre utilisateur connecté depuis notre store et les stockés dans userData.
   const userData = useSelector((state) => {
     return state.userReducer;
   });
@@ -22,25 +23,24 @@ const Navbar = () => {
             alt="logo groupomania orange"
           />
         </div>
+
         {uid ? (
           <div className="Navbar__header--right">
             <ul className="navbar-items">
               <li>
                 <h4>Bonjour {userData.email}</h4>
               </li>
-              <li className="logout">
+              
                 <Logout />
-              </li>
+              
             </ul>
           </div>
         ) : (
-          <ul>
-            <li className="Bonjour">
-              <NavLink className="Bonjour__text" exact to="/login">
-                Cliquez ici pour vous connectez et interagir !
-              </NavLink>
-            </li>
-          </ul>
+          <div className="Bonjour">
+            <NavLink className="Bonjour__text" to="/login">
+              Cliquez ici pour vous connectez et interagir !
+            </NavLink>
+          </div>
         )}
       </div>
     </nav>

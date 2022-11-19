@@ -48,3 +48,14 @@
   font-style: italic;
   margin: 15px;
 }
+
+@media screen and (max-width: 468px) {
+  .connectionForm {
+    &__input {
+      width: 80%;
+    }
+  }
+  .accueil-logo {
+    width: 80%;
+  }
+}

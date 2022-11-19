@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Like from "../components/Like";
 import DeletePost from "../components/DeletePost";
@@ -13,7 +13,6 @@ import "moment/locale/fr";
 moment.locale("fr");
 
 const Card = ({ post }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -23,80 +22,86 @@ const Card = ({ post }) => {
 
   const updateCard = () => {
     if (textUpdate) {
-      dispatch(updatePost(post._id, textUpdate))
+      dispatch(updatePost(post._id, textUpdate,userData._id,userData.isAdmin))
         .then(() => dispatch(getPosts()))
         .then(() => setTextUpdate(""));
     }
     setIsUpdated(false);
   };
 
-  useEffect(() => {
-    usersData.length && setIsLoading(false);
-  }, [usersData]);
-
   return (
     <li className="Card" key={post._id}>
-      {isLoading ? null : (
-        <>
-          <div className="Card__content">
-            <div className="Card__content--header">
-              <img
-                crossorigin="anonymous"
-                className="Card__content--userPicture"
-                src={
-                  usersData &&
-                  usersData.reduce((image, user) =>
-                    user._id === post.postID ? user.image : image
-                  )
-                }
-                alt="poster-pic"
-              />
-              <div className="Card__content--headerLeft">
-                <div className="Card__content--pseudo">
-                  <p>
-                    {usersData &&
-                      usersData.reduce(
-                        (email, user) =>
-                          user._id === post.postID ? user.email : email,
-                        null
-                      )}
-                  </p>
-                </div>
-
-                <span className="date">
-                  {moment(post.createdAt).format("LLLL")}
-                </span>
+      <>
+        <div className="Card__content">
+          <div className="Card__content--header">
+            <img
+              crossOrigin="anonymous"
+              className="Card__content--userPicture"
+              src={
+                usersData[0] &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.postID) return user.image;
+                    else return null;
+                  })
+                  .join("")
+              }
+              alt="poster-pic"
+            />
+            <div className="Card__content--headerLeft">
+              <div className="Card__content--pseudo">
+                <p>
+                  {usersData &&
+                    usersData.reduce(
+                      (email, user) =>
+                        user._id === post.postID ? user.email : email,
+                      null
+                    )}
+                </p>
               </div>
+
+              <span className="date">
+                {moment(post.createdAt).format("LLLL")}
+              </span>
             </div>
-            {post.postImage && (
-              <img
-                crossorigin="anonymous"
-                src={addBackendUrl(post.postImage)}
-                alt="card-img"
-                className="Card__content--picture"
+          </div>
+          <p className="Card__content--text">{post.postText}</p>
+          {post.postImage && (
+            <img
+              crossOrigin="anonymous"
+              src={addBackendUrl(post.postImage)}
+              alt="card-img"
+              className="Card__content--picture"
+            />
+          )}
+
+          {isUpdated && (
+            <div className="Card__content--modifyPost">
+              <textarea
+                className="Card__content--formUpdate"
+                defaultValue={post.postText}
+                onChange={(e) => setTextUpdate(e.target.value)}
               />
-            )}
+              <button className="Card__content--btnUpdate" onClick={updateCard}>
+                Envoyer
+              </button>
+            </div>
+          )}
+          {activComments && <Comments post={post} />}
 
-            <p className="Card__content--text">{post.postText}</p>
-            {isUpdated && (
-              <div className="Card__content--modifyPost">
-                <textarea
-                  className="Card__content--formUpdate"
-                  defaultValue={post.postText}
-                  onChange={(e) => setTextUpdate(e.target.value)}
-                />
-                <button
-                  className="Card__content--btnUpdate"
-                  onClick={updateCard}
-                >
-                  Envoyer
-                </button>
+          <div className="Card__content--footer">
+            {userData.isAdmin ? (
+              <div className="updatePost">
+                <div onClick={() => setIsUpdated(!isUpdated)}>
+                  <FontAwesomeIcon
+                    className="updatePost__Icon"
+                    icon={faPenToSquare}
+                  />
+                </div>
+                <DeletePost id={post._id} />
               </div>
-            )}
-            {activComments && <Comments post={post} />}
-
-            <div className="Card__content--footer">
-              {userData.isAdmin ? (
+            ) : (
+              userData._id === post.postID && (
                 <div className="updatePost">
                   <div onClick={() => setIsUpdated(!isUpdated)}>
                     <FontAwesomeIcon
@@ -106,37 +111,25 @@ const Card = ({ post }) => {
                   </div>
                   <DeletePost id={post._id} />
                 </div>
-              ) : (
-                userData._id === post.postID && (
-                  <div className="updatePost">
-                    <div onClick={() => setIsUpdated(!isUpdated)}>
-                      <FontAwesomeIcon
-                        className="updatePost__Icon"
-                        icon={faPenToSquare}
-                      />
-                    </div>
-                    <DeletePost id={post._id} />
-                  </div>
-                )
-              )}
+              )
+            )}
 
-              <div className="postInteractions">
-                <div className="postInteractions__content">
-                  <FontAwesomeIcon
-                    className="postInteractions__Icon"
-                    icon={faEnvelope}
-                    onClick={() => setActivComments(!activComments)}
-                  />
-                  <div className="postInteractions__Icon--number">
-                    {post.coms.length}
-                  </div>
+            <div className="postInteractions">
+              <div className="postInteractions__content">
+                <FontAwesomeIcon
+                  className="postInteractions__Icon"
+                  icon={faEnvelope}
+                  onClick={() => setActivComments(!activComments)}
+                />
+                <div className="postInteractions__Icon--number">
+                  {post.coms.length}
                 </div>
-                <Like post={post} />
               </div>
+              <Like post={post} />
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </>
     </li>
   );
 };

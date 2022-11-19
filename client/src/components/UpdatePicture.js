@@ -13,13 +13,14 @@ const UpdatePicture = () => {
       const data = new FormData();
       data.append("file", file);
       data.append("userId", userData._id);
-      console.log("userdata", userData);
 
       dispatch(updateProfil(data, userData._id));
       dispatch(getPosts());
     };
     if (file) {
       sendPicture();
+    } else {
+      alert("Veuillez choisir une image");
     }
   };
 
@@ -31,7 +32,7 @@ const UpdatePicture = () => {
           className="updateProfil__content"
           onSubmit={submitPicture}
         >
-          <label className="updateProfil__label" for="file-uploadProfil">
+          <label className="updateProfil__label" htmlFor="file-uploadProfil">
             Changer votre photo de profil
             <input
               className="updateProfil__inputFile"

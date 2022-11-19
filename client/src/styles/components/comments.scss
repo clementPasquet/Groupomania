@@ -1,15 +1,23 @@
 .comments {
+  margin-top:40px;
+
   &__date {
     font-style: italic;
     color: grey;
     margin-left: 40px;
+    display: flex;
+    flex: wrap;
   }
+
   &__content {
     border: 0.5px solid rgb(161, 143, 143);
     border-radius: 33px;
     margin: 10px;
-    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
     padding-top: 5px;
+    width:75%;
     &--userPicture {
       height: 70px;
       margin-right: 10px;
@@ -34,7 +42,7 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid grey;
-      padding-bottom: 20px;
+      padding-bottom: 10px;
     }
     &--headerLeft {
       display: flex;
@@ -44,9 +52,19 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
+      flex: wrap;
     }
     &--text {
-      text-align: center;
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: wrap;
+      margin:3px;
+      padding-top:15px;
+      padding-bottom:15px;
+
     }
   }
   &__form {
@@ -54,6 +72,8 @@
   }
   &__pseudo {
     padding: 10px;
+    display: flex;
+    flex: wrap;
   }
 }
 .editComment {
@@ -92,5 +112,57 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .comments {
+    &__content {
+      &--header {
+        flex-direction: column;
+      }
+      &--top {
+        align-items: baseline;
+        flex-direction: column;
+      }
+      &--userPicture {
+        height: 50px;
+      }
+      &--header {
+        align-items: baseline;
+      }
+    }
+    &__pseudo {
+      margin: 0px;
+      padding: 5px 0px 5px 0px;
+      font-size: 13px;
+    }
+    &__date {
+      margin: 0px;
+      font-size: 13px;
+    }
+  }
+  .editComment {
+    &__btnActiv {
+      font-size: 12px;
+      padding: 5px 7px 5px 7px;
+    }
+    &__form {
+      display: flex;
+      flex-direction: column;
+    }
+    &__left {
+      justify-content: center;
+    }
+    &__right {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+    &__textArea {
+      width: 90%;
+      height: 80px;
+    }
   }
 }

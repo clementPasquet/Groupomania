@@ -7,7 +7,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UidContext } from "./AppContext";
 
 const EditComment = ({ comment, postId }) => {
-  console.log(postId);
   const [isCommenter, setIsCommenter] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
@@ -66,16 +65,17 @@ const EditComment = ({ comment, postId }) => {
               <FontAwesomeIcon className="editComment__trash" icon={faTrash} />
             </div>
           </div>
+          <div className="editComment__right">
+            <input
+              className="editComment__textArea"
+              type="text"
+              name="text"
+              onChange={(e) => setText(e.target.value)}
+              defaultValue={comment.text}
+            />
 
-          <input
-            className="editComment__textArea"
-            type="text"
-            name="text"
-            onChange={(e) => setText(e.target.value)}
-            defaultValue={comment.text}
-          />
-
-          <input className="editComment__btn" type="submit" value="Valider" />
+            <input className="editComment__btn" type="submit" value="Valider" />
+          </div>
         </form>
       )}
     </div>

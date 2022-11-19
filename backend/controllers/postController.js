@@ -2,6 +2,7 @@ const UserModel = require("../models/userModel");
 const postModel = require("../models/postModel");
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
+const { postErrors } = require("../utils/error");
 
 module.exports.createPost = async (req, res) => {
   let newPost = undefined;
@@ -28,8 +29,8 @@ module.exports.createPost = async (req, res) => {
     const post = await newPost.save();
     return res.status(201).json(post);
   } catch (err) {
-    console.log("erreur", err);
-    return res.status(400).send(err);
+    const errors = postErrors(err);
+    return res.status(400).json(errors);
   }
 };
 
@@ -45,24 +46,39 @@ module.exports.getPosts = (req, res) => {
 module.exports.updatePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown :" + req.params.id);
-
   const update = {
     postText: req.body.postText,
   };
-  postModel.findByIdAndUpdate(
-    req.params.id,
-    { $set: update },
-    { new: true },
-    (err, data) => {
-      if (!err) res.send(data);
-      else console.log("erreur" + err);
-    }
-  );
-};
+  postModel.findOne({_id: req.params.id})
+  .then((post)=>{
+    if(post.postID === req.body.userID || req.body.userAdmin===true ){
+      postModel.findByIdAndUpdate(
+        req.params.id,
+        { $set: update },
+        { new: true },
+        (err, data) => {
+          if (!err) res.send(data);
+          else console.log("erreur" + err);
+        }
+      )
+      }
+      else {
+        res.status(401).json({message:"Not authorized"})
+        
+      }
+    })
+  };
+ 
+
 module.exports.deletePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown :" + req.params.id);
+   console.log(req.body)
 
+    postModel.findOne({_id: req.params.id})
+  .then((post)=>{
+    if(post.postID === req.body.userID || req.body.isAdmin===true ){
+    
   postModel.findByIdAndRemove(req.params.id, (err, data) => {
     if (!err) {
       res.send(data);
@@ -74,7 +90,10 @@ module.exports.deletePost = (req, res) => {
         }
       });
     } else console.log("erreur" + err);
+  
   });
+}else{res.status(401).json({message:"Not authorized"})}
+})
 };
 module.exports.likePost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))

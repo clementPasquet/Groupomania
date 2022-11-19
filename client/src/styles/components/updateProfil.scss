@@ -35,6 +35,13 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .updateProfil {
+    &__inputBtn {
+      width: 50%;
+    }
+  }
+}
 @media screen and (max-width: 468px) {
   .updateProfil {
     &__inputBtn {

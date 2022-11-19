@@ -1,17 +1,11 @@
 @import "./pages/feed.scss";
 @import "./pages/login.scss";
-@import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Shrikhand");
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 body {
   margin: 0px;
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: Shrikhand;
-  }
-  font-family: Roboto;
+
+  font-family: Lato, "sans-serif";
 }
 a {
   text-decoration: none;

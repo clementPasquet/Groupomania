@@ -1,14 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { deletePost, getPosts } from "../reducers/postActions";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
 const DeletePost = (props) => {
+const userData = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
   const deleteCard = () => {
-    console.log(props);
-    dispatch(deletePost(props.id)).then(() => dispatch(getPosts()));
+    dispatch(deletePost(props.id,userData._id,userData.isAdmin)).then(() => dispatch(getPosts()));
   };
 
   return (

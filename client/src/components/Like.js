@@ -20,6 +20,8 @@ const Like = ({ post }) => {
     setLiked(false);
   };
 
+  //le hook useEffect vérifie a la compilation du composant 
+  //vérifie que le post recu en props est bien liké par l'utilisateur connecté
   useEffect(() => {
     if (post.likers.includes(uid)) setLiked(true);
     else setLiked(false);

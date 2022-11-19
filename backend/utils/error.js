@@ -20,3 +20,12 @@ module.exports.loginErrors = (err) => {
 
   return errors;
 };
+
+module.exports.postErrors = (err) => {
+  let errors = { errors: "" };
+
+  if (err.message.includes("Post"))
+    errors.errors = "veuillez ne pas dépasser 140 caractéres";
+
+  return errors;
+};
