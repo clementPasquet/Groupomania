@@ -5,7 +5,7 @@ const userRoutes = require("./routes/utilisateur");
 const postRoutes = require("./routes/post");
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
-const { checkUser, requireAuth } = require("./middleware/authMiddleware");
+const { checkUser, getToken } = require("./middleware/authMiddleware");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
@@ -30,9 +30,7 @@ app.use(cookieParser());
 //fais appel a l'authentification du token pour chaque routes
 
 app.get("*", checkUser);
-app.get("/jwtid", requireAuth, (req, res) => {
-  res.status(200).send(res.locals.user.id);
-});
+app.get("/jwtid", getToken);
 
 //routes
 app.use("/api/post", postRoutes);

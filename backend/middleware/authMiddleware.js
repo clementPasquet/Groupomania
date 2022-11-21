@@ -20,13 +20,15 @@ module.exports.checkUser = (req, res, next) => {
   }
 };
 
-module.exports.requireAuth = (req, res, next) => {
+module.exports.getToken = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err) => {
       if (err) {
         console.log(err);
       } else {
+        res.status(200).send(res.locals.user.id);
+
         next();
       }
     });

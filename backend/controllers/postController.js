@@ -1,6 +1,5 @@
 const UserModel = require("../models/userModel");
 const postModel = require("../models/postModel");
-const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const { postErrors } = require("../utils/error");
 
@@ -44,14 +43,11 @@ module.exports.getPosts = (req, res) => {
 };
 
 module.exports.updatePost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown :" + req.params.id);
   const update = {
     postText: req.body.postText,
   };
-  postModel.findOne({_id: req.params.id})
-  .then((post)=>{
-    if(post.postID === req.body.userID || req.body.userAdmin===true ){
+  postModel.findOne({ _id: req.params.id }).then((post) => {
+    if (post.postID === req.body.userID || req.body.userAdmin === true) {
       postModel.findByIdAndUpdate(
         req.params.id,
         { $set: update },
@@ -60,45 +56,34 @@ module.exports.updatePost = (req, res) => {
           if (!err) res.send(data);
           else console.log("erreur" + err);
         }
-      )
-      }
-      else {
-        res.status(401).json({message:"Not authorized"})
-        
-      }
-    })
-  };
- 
+      );
+    } else {
+      res.status(401).json({ message: "Not authorized" });
+    }
+  });
+};
 
 module.exports.deletePost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown :" + req.params.id);
-   console.log(req.body)
-
-    postModel.findOne({_id: req.params.id})
-  .then((post)=>{
-    if(post.postID === req.body.userID || req.body.isAdmin===true ){
-    
-  postModel.findByIdAndRemove(req.params.id, (err, data) => {
-    if (!err) {
-      res.send(data);
-      const path = data.postImage;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
+  postModel.findOne({ _id: req.params.id }).then((post) => {
+    if (post.postID === req.body.userID || req.body.isAdmin === true) {
+      postModel.findByIdAndRemove(req.params.id, (err, data) => {
+        if (!err) {
+          res.send(data);
+          const path = data.postImage;
+          fs.unlink(path, (err) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+          });
+        } else console.log("erreur" + err);
       });
-    } else console.log("erreur" + err);
-  
+    } else {
+      res.status(401).json({ message: "Not authorized" });
+    }
   });
-}else{res.status(401).json({message:"Not authorized"})}
-})
 };
 module.exports.likePost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
-
   try {
     postModel.findByIdAndUpdate(
       req.params.id,
@@ -126,9 +111,6 @@ module.exports.likePost = (req, res) => {
   }
 };
 module.exports.unlikePost = async (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown :" + req.params.id);
-
   try {
     postModel.findByIdAndUpdate(
       req.params.id,
@@ -156,9 +138,6 @@ module.exports.unlikePost = async (req, res) => {
   }
 };
 module.exports.comsPost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown :" + req.params.id);
-
   try {
     return postModel.findByIdAndUpdate(
       req.params.id,
